@@ -1,0 +1,77 @@
+﻿<Window x:Class="CodeForcesCurling.Views.CurlingSimView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeForcesCurling"
+        xmlns:view="clr-namespace:CodeForcesCurling.View"
+        mc:Ignorable="d"
+        Title="CodeForces Curling" Height="768" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Input" Grid.Row="0" Margin="10,10" Padding="10,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label>Radius</Label>
+                    <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding InputRadius}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="20,0">
+                    <Label>X Locations</Label>
+                    <TextBox Text="{Binding InputXLocations}" />
+                </StackPanel>
+                <Button Grid.Column="2" Padding="20,0" Command="{Binding GenerateRandomCommand}">
+                    <TextBlock>Generate<LineBreak />Random</TextBlock>
+                </Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Process" Grid.Row="1" Margin="10,10" Padding="10,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label>Solver</Label>
+                    <ComboBox ItemsSource="{Binding Solvers}" SelectedItem="{Binding SelectedSolver}"/>
+                </StackPanel>
+                <Button Grid.Column="2" Padding="20,0" Margin="20,0,0,0" Command="{Binding SolveCommand}">Solve</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Output" Grid.Row="2" Margin="10,10" Padding="10,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label>Y Values</Label>
+                        <TextBox IsReadOnly="True" Text="{Binding OutputYValues}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <Label>Duration</Label>
+                        <TextBox IsReadOnly="True" Text="{Binding OutputDuration}" />
+                    </StackPanel>
+                </Grid>
+                <view:CurlingSimGraph Solver="{Binding Path=CompletedSolver, Mode=TwoWay}" Grid.Row="1" Margin="0,10" Height="{Binding Path=ActualHeight,ElementName=container}"/>
+            </Grid>
+        </GroupBox>
+        <StackPanel HorizontalAlignment="Right" Grid.Row="3" Margin="0,10,10,10">
+            <Button  Padding="20,0" Command="{Binding CloseCommand}">Close</Button>
+        </StackPanel>
+    </Grid>
+</Window>
